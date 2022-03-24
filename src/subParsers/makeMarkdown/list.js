@@ -19,7 +19,7 @@ showdown.subParser('makeMarkdown.list', function (node, globals, type) {
     if (type === 'ol') {
       bullet = listNum.toString() + '. ';
     } else {
-      bullet = '- ';
+      bullet = '*   ';
     }
 
     // parse list item
