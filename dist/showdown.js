@@ -1,4 +1,4 @@
-;/*! showdown v 1.9.1 - 02-11-2019 */
+;/*! showdown v 1.9.1 - 24-03-2022 */
 (function(){
 /**
  * Created by Tivie on 13-07-2015.
@@ -4731,6 +4731,23 @@ showdown.subParser('makeMarkdown.image', function (node) {
   return txt;
 });
 
+showdown.subParser('makeMarkdown.input', function (node, globals) {
+  'use strict';
+
+  var txt = '';
+  if (node.getAttribute('checked') !== null) {
+    txt += '[x]';
+  } else {
+    txt += '[ ]';
+  }
+  var children = node.childNodes,
+    childrenLength = children.length;
+  for (var i = 0; i < childrenLength; ++i) {
+    txt += showdown.subParser('makeMarkdown.node')(children[i], globals);
+  }
+  return txt;
+});
+
 showdown.subParser('makeMarkdown.links', function (node, globals) {
   'use strict';
 
@@ -4921,6 +4938,10 @@ showdown.subParser('makeMarkdown.node', function (node, globals, spansOnly) {
 
     case 'img':
       txt = showdown.subParser('makeMarkdown.image')(node, globals);
+      break;
+
+    case 'input':
+      txt = showdown.subParser('makeMarkdown.input')(node, globals);
       break;
 
     default:
