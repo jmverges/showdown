@@ -4735,7 +4735,7 @@ showdown.subParser('makeMarkdown.input', function (node, globals) {
   'use strict';
 
   var txt = '';
-  if (node.getAttribute('checked') !== null) {
+  if (node.getAttribute('checked') !== null || node.getAttribute('data-checked') !== null) {
     txt += '[x]';
   } else {
     txt += '[ ]';
